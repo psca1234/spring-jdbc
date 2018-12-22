@@ -13,11 +13,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.psca.spring.domain.City;
 import com.psca.spring.jdbc.dao.JdbcTemplateTestDao;
+import com.psca.spring.jdbc.dao.namedParameterJdbcTemplate.NamedParameterJdbcTemplateTestDao;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="classpath:applicationContext.xml")
 public class TestJdbcTemplateDao {
 	@Autowired
 	private JdbcTemplateTestDao jdbcTemplateTestDao;
+	@Autowired
+	private NamedParameterJdbcTemplateTestDao named;
 	@Test
 	public void test() {
 		fail("Not yet implemented");
@@ -53,5 +56,16 @@ public class TestJdbcTemplateDao {
 		for(City city : cityList) {
 			System.out.println(city);
 		}
+	}
+	@Test
+	public void testUpdateCityInfoByNamedParameterJdbcTemplate() {
+		String countryCode="CHN";
+		Integer id = 4082;
+		named.updateCityInfoByCityId(countryCode, id);
+	}
+	@Test
+	public void testDeleteCityInfoByCityIdAndUseSqlParameterSource() {
+		Integer id = 4086;
+		named.deleteCityInfoByCityId(id);
 	}
 }
